@@ -1,7 +1,7 @@
 # timeout
 timeout = "1200s"
 # your website url
-baseURL = 'https://example.org/'
+baseURL = 'https://www.jackherberger.com/lambdaCatfishPhotography/'
 # website title
 title = 'public class lambdaCatfishPhotos {'
 # don't touch this
