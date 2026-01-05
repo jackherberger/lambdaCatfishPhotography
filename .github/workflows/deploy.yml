@@ -46,7 +46,7 @@ jobs:
         run: pnpm --dir themes/bridget install
 
       - name: Build theme assets
-        run: pnpm --dir themes/bridget run vite:build
+        run: pnpm --dir themes/bridget run vite:build --base ./
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
