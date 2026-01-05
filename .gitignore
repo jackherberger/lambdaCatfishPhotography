@@ -1,0 +1,16 @@
+# Hugo default output directory
+public
+resources
+_vendor
+
+# Node dependencies
+node_modules
+.pnpm-debug.log
+
+# Build locks and temp files
+.hugo_build.lock
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
