@@ -11,6 +11,8 @@ build:
   publishResources: false
 ---
 
-Welcome to LCP - Photography of Jack Herberger
+Photography of Jack Herberger.
+
+www.jackherberger.com
 
 This site is built using the [Bridget theme](https://github.com/Sped0n/bridget) for Hugo.
