@@ -4,7 +4,7 @@ layout: single
 url: /info/
 menu:
   main:
-    weight: 3
+    weight: 2
     identifier: Info
     title: Info
 build:

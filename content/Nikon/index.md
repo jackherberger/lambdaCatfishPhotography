@@ -1,4 +1,5 @@
 ---
+draft: true
 type: _default
 layout: single
 url: /nikon/
