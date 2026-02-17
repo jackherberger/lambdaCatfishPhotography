@@ -1,0 +1,56 @@
+{{- $context := . -}}
+{{- $params := .Page.Params | merge .Site.Params.Page -}}
+
+{{- with partial "function/getImageSlice.html" .  -}}
+  {{- $images := . -}}
+  {{- $sortedImages := slice -}}
+  
+  {{- if $context.Page.Params.photoOrder -}}
+    {{- $order := $context.Page.Params.photoOrder -}}
+    {{- range $order -}}
+      {{- $target := . -}}
+      {{- range $images -}}
+        {{- if eq .Name $target -}}
+          {{- $sortedImages = $sortedImages | append . -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- /* Append images not in the photoOrder list at the end */ -}}
+    {{- range $images -}}
+      {{- if not (in $order .Name) -}}
+        {{- $sortedImages = $sortedImages | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $sortBy := $context.Page.Params.sortBy | default "Name" -}}
+    {{- $sortOrder := $context.Page.Params.sortOrder | default "desc" -}}
+    {{- $sortedImages = sort . $sortBy $sortOrder -}}
+  {{- end -}}
+
+  {{- $index := len $sortedImages -}}
+  {{- $context.Scratch.Add "img" slice -}}
+  {{- range $sortedImages -}}
+    {{- $image := . -}}
+    {{- $index = sub $index 1 -}}
+    {{- $alt := .Name -}}
+    {{- with $params.unifiedAlt -}}
+      {{- $alt = . -}}
+    {{- end -}}
+    {{- $lores := .Resize (site.Params.loResOpt | default "700x webp Lanczos q60") -}}
+    {{- $hires := .Resize (site.Params.hiResOpt | default "2000x webp Lanczos q75") -}}
+    {{- $context.Scratch.Add "img" (dict
+      "index" (int $index)
+      "alt" (string $alt)
+      "loUrl" (string $lores.RelPermalink)
+      "loImgH" (int $lores.Height)
+      "loImgW" (int $lores.Width)
+      "hiUrl" (string $hires.RelPermalink)
+      "hiImgH" (int $hires.Height)
+      "hiImgW" (int $hires.Width)
+      )
+    -}}
+  {{- end -}}
+  {{ $context.Scratch.Get "img" | jsonify }}
+{{- else -}}
+[]
+{{- end -}}
